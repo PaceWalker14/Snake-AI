@@ -1,44 +1,50 @@
 # 🐍 Snake-AI
 
-An intelligent autonomous agent built in Java that plays the classic Snake game. The project uses a custom-built AI controller (`MyAgent.java`) to navigate the board, avoid obstacles, and hunt for food with high efficiency.
+An intelligent autonomous agent built in Java that plays the classic Snake game. The project features a custom AI controller (`MyAgent.java`) that utilizes pathfinding algorithms and predictive heuristics to outlast opponents and maximize its score.
 
 ![Java Version](https://img.shields.io/badge/Java-8%2B-orange)
 ![License](https://img.shields.io/badge/License-MIT-blue)
+![Algorithm](https://img.shields.io/badge/Algorithm-A*-green)
 
 ---
 
-## 🚀 How It Works
+## 🧠 How It Works
 
-The agent processes the game state in real-time to make optimal survival decisions. Its logic is divided into four main layers:
+The agent processes the game state through a multi-layered decision-making pipeline:
 
-* **Perception:** The agent receives a full map of the board every tick, identifying the coordinates of the Snake's head, body segments, food locations, and boundary walls [00:00:05].
-* **Pathfinding:** It calculates the most efficient route (Up, Down, Left, or Right) to the nearest food source using distance-based heuristics [00:00:12].
-* **Safety Analysis:** Before executing a move, the AI runs a "Collision Check" to ensure the next coordinate isn't a wall or a part of its own growing body [00:00:18].
-* **Fallback Strategy:** If a direct path to food is dangerous or blocked, the agent enters "Survival Mode," rerouting to the largest available open space to avoid getting trapped [00:00:25].
+### 1. Perception & Grid Mapping
+The AI receives raw coordinate data for all snakes and the apple. It reconstructs this into a 2D collision grid, intelligently interpolating body segments between joints to ensure 100% accuracy in obstacle detection.
+
+### 2. A* Pathfinding
+For food retrieval, the agent implements the **A* Search Algorithm**. It calculates the most efficient route to the apple using **Manhattan Distance** as its heuristic:
+$$d(a, b) = |a_x - b_x| + |a_y - b_y|$$
+
+
+
+### 3. Predictive Safety (Head-on Collision Avoidance)
+To prevent deaths caused by other snakes, the agent calculates a **one-block buffer zone** around enemy heads. If a move could potentially result in an opponent moving into the same space, the agent proactively chooses a different path.
+
+### 4. Temporal Awareness
+The agent tracks the "Age" of the apple. If the apple has been active for over 50 timesteps without being reached, the AI recognizes it may be a high-risk target and prioritizes safer positioning over aggressive hunting.
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Project Structure
+
+* **`MyAgent.java`**: The core logic. Contains the A* implementation, collision grid builder, and movement engine.
+* **`SnakeRunner.jar`**: The simulation environment used to test and visualize the agent.
+* **`README.md`**: Project documentation.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-* **Java Development Kit (JDK) 8** or later installed on your system.
+* **Java Development Kit (JDK) 8** or later.
 
-### Running the Simulation
-1.  Clone this repository.
-2.  Ensure `MyAgent.java` is compiled.
-3.  Launch the simulation using the provided runner:
-    ```bash
-    java -jar SnakeRunner.jar
-    ```
-
----
-
-## 📂 Project Structure
-* `MyAgent.java`: The core AI logic and decision-making engine.
-* `SnakeRunner.jar`: The game engine and GUI used to visualize the AI's performance.
-* `/src`: Contains supporting classes for game state management.
-
----
-
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Running the Project Locally
+1. Clone the repository.
+2. Compile the source code.
+3. Run the simulation using the provided JAR file:
+```bash
+java -jar SnakeRunner.jar
