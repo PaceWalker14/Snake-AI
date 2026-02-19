@@ -1,1 +1,17 @@
-# Snake-AI
+#Snake-AI
+Snake AI is a Java-based project where an autonomous agent (MyAgent.java) plays the classic Snake game intelligently. The game runs through a provided SnakeRunner.jar file that launches the simulation.
+
+image
+🎮 How to Run
+Make sure you have Java 8 or later installed.
+
+📹 Demo
+(https://youtu.be/cIZrepKcBbg)
+
+How it works:
+
+Game state handling: The agent receives the current position of the snake, the food, and obstacles on the board each turn.
+Direction control: The AI calculates which move (up, down, left, right) to take based on its analysis of the board.
+Collision avoidance: Before moving, it checks for potential collisions with walls or its own body.
+Food targeting: It identifies the nearest food and attempts to navigate toward it efficiently.
+Fallback logic: If the direct path to food is blocked, the agent safely reroutes to prevent getting trapped.
